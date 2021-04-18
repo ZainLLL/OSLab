@@ -33,6 +33,7 @@ char *b_addr(Map *pos);
 
 void memInit();
 void memDisplay();
+void memClear();
 
 void lmalloc(unsigned size);
 char* memAlloc(unsigned size);

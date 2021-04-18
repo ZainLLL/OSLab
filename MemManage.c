@@ -1,6 +1,6 @@
 #include "MemManage.h"
 
-char *ErrMsg[] = {
+const char *ErrMsg[] = {
     /* 0 */ "No error",
     /* 1 */ "Fail to Free! Check Size and Address.",
     /* 2 */ "Fail to Allocate. Memory Space not Enough!",
@@ -35,6 +35,22 @@ void memInit(){
     cur_map = head;
 } 
 
+void memClear(){
+    Map* pos;
+    Map* tmp;
+    // free all items in LickList
+    pos = head;
+    tmp = head->next;
+    free(pos);
+    while(tmp)
+    {
+        pos = tmp;
+        tmp = tmp->next;
+        free(pos);
+    }
+    free(Mem);
+}
+
 char* memAlloc(unsigned size){
     Map *pos = cur_map;
     char *l_addr;
@@ -49,10 +65,14 @@ char* memAlloc(unsigned size){
     pos->m_size -= size;
     pos->m_addr += size;
     cur_map = pos->next;
+    
+    //check freeblock left space
     if(pos->m_size==0){
-        if(pos->next!=pos){
+        if(pos->next!=pos){ //if not the only block
             pos->next->prior = pos->prior;
             pos->prior->next = pos->next;
+            if(pos==head)
+                head = pos->next;
             free(pos);
         }
     }
@@ -75,7 +95,13 @@ bool memFree(unsigned size,char *bgn_addr){
     Map *next_map;
     Map *tail = head->prior;
     char *end_addr = bgn_addr + size;
-
+    
+    //check size
+    if(size==0){
+        ErrNo=ERR_FREE_FAIL;
+        return false;
+    }
+    
     //check range 
     if(end_addr>Mem+M_SIZE){
         ErrNo = ERR_MEM_OVERFLOW;
