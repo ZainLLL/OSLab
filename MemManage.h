@@ -6,6 +6,7 @@
 #define M_SIZE 1000
 
 
+/*error type and output function*/
 typedef enum _Error
 {
     ERR_NO_ERR = 0,
@@ -16,6 +17,8 @@ typedef enum _Error
 } Error;
 
 void pError();
+
+/*--------------------------------------------------------*/
 
 
 /*map struct and functions*/
@@ -30,14 +33,19 @@ char *b_addr(Map *pos);
 
 void memInit();
 void memDisplay();
-char* memAlloc(unsigned size);
-void lmalloc(unsigned size);
 
+void lmalloc(unsigned size);
+char* memAlloc(unsigned size);
+
+void lfree(unsigned size, unsigned r_addr);
 bool memFree(unsigned size, char *addr);
 void memFreeCase1(unsigned size, char *addr, Map *next_map);
 void memFreeCase2(unsigned size, char *addr, Map *next_map);
 void memFreeCase3(unsigned size, Map *prev_map);
 void memFreeCase4(unsigned size, Map *prev_map);
-void lfree(unsigned size, unsigned r_addr);
 
+/*--------------------------------------------------------*/
+
+
+/*cmd UI function*/
 void cmdParse();

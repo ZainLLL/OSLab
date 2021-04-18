@@ -3,11 +3,11 @@
 extern Error ErrNo;
 
 char *cmdUI = "************ Momery Management **********\n"
-           "   Allocate: type 'malloc size'          \n"
-           "     Free  : type 'free size address'    \n"
-           "     Quit  : type 'exit'                 \n"
-           "     Help  : type 'help'                 \n"
-           "*****************************************\n";
+              "   Allocate: type 'malloc size'          \n"
+              "     Free  : type 'free size address'    \n"
+              "     Quit  : type 'exit'                 \n"
+              "     Help  : type 'help'                 \n"
+              "*****************************************\n";
 
 
 void cmdParse(){
