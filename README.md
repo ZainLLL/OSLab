@@ -1,2 +1,2 @@
 # OSLab
-OS course lab code
+Operating System Course Lab
